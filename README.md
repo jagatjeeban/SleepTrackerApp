@@ -7,7 +7,7 @@ You can record a start and stop time, assign a quality rating, and clear the dat
 
 Tech Stacks Used
 ----------------
-* Room Database
+* Room Library
 * SQL Database 
 * SQLite Language
 * Recycler View
