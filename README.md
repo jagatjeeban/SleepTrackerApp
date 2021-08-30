@@ -13,8 +13,5 @@ Tech Stacks Used
 * Recycler View
 * Android Architecture Components
 
-User Interface
---------------
-
 
 
