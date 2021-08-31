@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/jagat/Downloads/android-kotlin-fundamentals-starter-apps-master/android-kotlin-fundamentals-starter-apps-master/TrackMySleepQuality-Starter/app/src/main/res/font/roboto.xml" value="0.20092592592592592" />
+        <entry key="..\:/Users/jagat/Downloads/android-kotlin-fundamentals-starter-apps-master/android-kotlin-fundamentals-starter-apps-master/TrackMySleepQuality-Starter/app/src/main/res/layout/fragment_sleep_quality.xml" value="0.15833333333333333" />
+        <entry key="..\:/Users/jagat/Downloads/android-kotlin-fundamentals-starter-apps-master/android-kotlin-fundamentals-starter-apps-master/TrackMySleepQuality-Starter/app/src/main/res/layout/fragment_sleep_tracker.xml" value="0.22" />
+        <entry key="..\:/Users/jagat/Downloads/android-kotlin-fundamentals-starter-apps-master/android-kotlin-fundamentals-starter-apps-master/TrackMySleepQuality-Starter/app/src/main/res/layout/list_item_sleep_night.xml" value="0.3333333333333333" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

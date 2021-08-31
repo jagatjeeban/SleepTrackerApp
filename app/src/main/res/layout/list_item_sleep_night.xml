@@ -1,44 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/quality_image"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_sleep_5" />
+    <data>
+        <variable
+            name="sleep"
+            type="com.example.android.trackmysleepquality.database.SleepNight" />
 
-    <TextView
-        android:id="@+id/sleep_length"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/quality_image"
-        app:layout_constraintTop_toTopOf="@+id/quality_image"
-        tools:text="Wednesday" />
+    </data>
 
-    <TextView
-        android:id="@+id/quality_string"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/sleep_length"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/sleep_length"
-        app:layout_constraintTop_toBottomOf="@+id/sleep_length"
-        tools:text="Excellent!!!" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!--        <ImageView-->
+<!--            android:id="@+id/quality_image"-->
+<!--            android:layout_width="@dimen/icon_size"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginBottom="8dp"-->
+<!--            android:contentDescription="@string/sleep_image"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            tools:ignore="ImageContrastCheck,ImageContrastCheck"-->
+<!--            tools:srcCompat="@drawable/ic_sleep_5"-->
+<!--            app:sleepImage="@{sleep}"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/sleep_length"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/quality_image"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/quality_image"-->
+<!--            tools:text="Wednesday"-->
+<!--            app:sleepDurationFormatted="@{sleep}"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/quality_string"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/sleep_length"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/sleep_length"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/sleep_length"-->
+<!--            tools:text="Excellent!!!"-->
+<!--            app:sleepQualityString="@{sleep}"/>-->
+
+        <ImageView
+            android:id="@+id/quality_image"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/ic_sleep_5"
+            android:contentDescription="@string/sleep_image"
+            app:sleepImage="@{sleep}"/>
+
+        <TextView
+            android:id="@+id/quality_string"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="16dp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quality_image"
+            app:sleepQualityString="@{sleep}"
+            tools:text="Excellent!"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
