@@ -1,17 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.test:core:1.4.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/72b27e2bd679da97e988555495079975/jetified-core-1.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dbcc9022b2cce55dbee00cb5248624a2/jetified-core-1.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/53ef87533fde9cafa927a8bbaf433b00/transformed/jetified-core-1.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1703c4b33246b4732d1e57724ef8cd57/transformed/jetified-core-1.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c58ad82212966ff7ca69705940f61a1e/transformed/jetified-core-1.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f13c656b44cc1abdb81b8992288e642d/transformed/jetified-core-1.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/192ba7a4ad6ea336a9df31f08d419c4c/transformed/jetified-core-1.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0f2aeb44d1d6b0f8d2907e40bbae9a64/transformed/jetified-core-1.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/75d2e9111cd29e4bfadeb566a8085805/transformed/jetified-core-1.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a70fc3c32ee3648c76e3a8768a30f7bf/transformed/jetified-core-1.4.0/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0f2aeb44d1d6b0f8d2907e40bbae9a64/transformed/jetified-core-1.4.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0f2aeb44d1d6b0f8d2907e40bbae9a64/transformed/jetified-core-1.4.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0f2aeb44d1d6b0f8d2907e40bbae9a64/transformed/jetified-core-1.4.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
