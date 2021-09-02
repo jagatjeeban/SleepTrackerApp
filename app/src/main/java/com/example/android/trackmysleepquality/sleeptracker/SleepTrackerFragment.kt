@@ -20,7 +20,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -51,29 +50,31 @@ class SleepTrackerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        // Get a reference to the binding object and inflate the fragment views.
+        /** Get a reference to the binding object and inflate the fragment views */
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_sleep_tracker, container, false)
 
-        //Get a reference to the application context
-        //requireNotNull() method throws an Illegal Argument Exception if the value is null
+        /**
+         *  Get a reference to the application context.
+         *  requireNotNull() method throws an Illegal Argument Exception if the value is null
+         */
         val application = requireNotNull(this.activity).application
 
-        //Get a reference to your data source via a reference to the DAO.
+        /** Get a reference to your data source via a reference to the DAO */
         val dataSource = SleepDatabase.getInstance(application).sleepDatabaseDao
 
-        //Instance of the viewModelFactory
+        /** Instance of the viewModelFactory */
         val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
 
-        //Get a reference to the SleepTrackerViewModel
+        /** Get a reference to the SleepTrackerViewModel */
         val sleepTrackerViewModel = ViewModelProvider(
                 this, viewModelFactory).get(SleepTrackerViewModel::class.java)
         binding.sleepTrackerViewModel = sleepTrackerViewModel
 
-        //Set the current activity as the lifecycle owner of the binding.
+        /** Set the current activity as the lifecycle owner of the binding */
         binding.lifecycleOwner = this
 
-        //observer for navigation from sleepTrackerFragment to sleepQualityFragment
+        /** observer for navigation from sleepTrackerFragment to sleepQualityFragment */
         sleepTrackerViewModel.navigateToSleepQuality.observe(viewLifecycleOwner, Observer {
             night ->
             night?.let {
@@ -84,20 +85,25 @@ class SleepTrackerFragment : Fragment() {
             }
         })
 
+        /**
+         * Code to call the click handler
+         */
         val adapter = SleepNightAdapter(SleepNightListener { nightId ->
-            Toast.makeText(context, "$nightId", Toast.LENGTH_LONG).show()
+            sleepTrackerViewModel.onSleepNightClicked(nightId)
         })
 
         binding.sleepList.adapter = adapter
 
-        //whenever you get a non-null value (for nights), assign the value to the adapter's data.
+        /**
+         * whenever you get a non-null value (for nights), assign the value to the adapter's data.
+         */
         sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
         })
 
-        //observer for snackbar event
+        /** observer for snackbar event */
         sleepTrackerViewModel.showSnackbarEvent.observe(viewLifecycleOwner, Observer {
             if (it == true){
                 Snackbar.make(requireActivity().findViewById(android.R.id.content),
@@ -105,6 +111,15 @@ class SleepTrackerFragment : Fragment() {
                 Snackbar.LENGTH_SHORT).show()
 
                 sleepTrackerViewModel.doneShowingSnackbar()
+            }
+        })
+
+        /** Observer for navigating from SleepTrackerFragmnet to SleepQualityFragment */
+        sleepTrackerViewModel.navigateToSleepDetail.observe(viewLifecycleOwner, Observer {night ->
+            night?.let {
+                this.findNavController().navigate(
+                        SleepTrackerFragmentDirections.actionSleepTrackerFragmentToSleepDetailFragment(night))
+                sleepTrackerViewModel.onSleepDetailNavigated()
             }
         })
 

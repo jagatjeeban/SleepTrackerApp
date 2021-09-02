@@ -31,7 +31,7 @@ class SleepTrackerViewModel(
 
      val nights = database.getAllNights()
 
-    var tonight = MutableLiveData<SleepNight?>()
+    private var tonight = MutableLiveData<SleepNight?>()
 
 
     init {
@@ -67,7 +67,7 @@ class SleepTrackerViewModel(
         viewModelScope.launch {
 
             /**
-             * the return@label syntax specifies the function from which this statement returns,
+             * The return@label syntax specifies the function from which this statement returns,
              * among several nested functions.
              */
             val oldNight = tonight.value ?: return@launch
@@ -123,5 +123,17 @@ class SleepTrackerViewModel(
     fun doneShowingSnackbar(){
         _showSnackbarEvent.value = false
     }
+
+    private val _navigateToSleepDetail = MutableLiveData<Long?>()
+    val navigateToSleepDetail: MutableLiveData<Long?>
+        get() = _navigateToSleepDetail
+
+    fun onSleepNightClicked(id:Long){
+        _navigateToSleepDetail.value = id
+    }
+    fun onSleepDetailNavigated() {
+        _navigateToSleepDetail.value = null
+    }
+
 }
 
