@@ -1,25 +1,74 @@
 package com.example.android.trackmysleepquality.sleeptracker
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.databinding.ListItemSleepNightBinding
 
+/**
+ * The RecyclerView will need to distinguish each item's view type,
+ * so that it can correctly assign a view holder to it.
+ */
+private const val ITEM_VIEW_TYPE_HEADER = 0
+private const val ITEM_VIEW_TYPE_ITEM = 1
 
 class SleepNightAdapter(private val clickListener:SleepNightListener):
-    androidx.recyclerview.widget.ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
+    androidx.recyclerview.widget.ListAdapter<DataItem, RecyclerView.ViewHolder>(SleepNightDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when(viewType){          //return the appropriate view holder for each item type
+            ITEM_VIEW_TYPE_HEADER -> TextViewHolder.from(parent)
+            ITEM_VIEW_TYPE_ITEM -> ViewHolder.from(parent)
+            else -> throw ClassCastException("Unknown viewType $viewType")
+        }
     }
 
-    // display the data for one list item at the specified position.
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    /**
+     * Instead of using submitList(), provided by the ListAdapter,
+     * to submit the list, we will use this function to add a header and then submit the list.
+     */
+    fun addHeaderAndSubmitList(list: List<SleepNight>?){
+        val items = when(list){
+            null -> listOf(DataItem.Header)
+            else -> listOf(DataItem.Header) + list.map { DataItem.SleepNightItem(it) }
+        }
+        submitList(items)
+    }
 
-        val item = getItem(position)
-        holder.bind(item!!, clickListener)
+    // Display the data for one list item at the specified position.
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when(holder){      //Add a condition to only assign data to the view holder if the holder is a ViewHolder.
+            is ViewHolder ->{
+
+                //Cast the object type returned by getItem() to DataItem.SleepNightItem
+                val nightItem = getItem(position) as DataItem.SleepNightItem
+                holder.bind(nightItem.sleepNight, clickListener)
+            }
+        }
+    }
+
+    class TextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        companion object {
+            fun from(parent: ViewGroup): TextViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val view = layoutInflater.inflate(R.layout.header, parent, false)
+
+                return TextViewHolder(view)
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when(getItem(position)){
+            is DataItem.Header -> ITEM_VIEW_TYPE_HEADER
+            is DataItem.SleepNightItem -> ITEM_VIEW_TYPE_ITEM
+
+        }
     }
 
     class ViewHolder private constructor(private val binding: ListItemSleepNightBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -46,17 +95,38 @@ class SleepNightAdapter(private val clickListener:SleepNightListener):
     }
 }
 
-  class SleepNightDiffCallback : DiffUtil.ItemCallback<SleepNight>() {
+  class SleepNightDiffCallback : DiffUtil.ItemCallback<DataItem>() {
 
-    override fun areItemsTheSame(oldItem: SleepNight, newItem: SleepNight): Boolean {
-        return oldItem.nightId == newItem.nightId
+    override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: SleepNight, newItem: SleepNight): Boolean {
+      @SuppressLint("DiffUtilsEquals")
+    override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
         return oldItem == newItem
     }
 }
   class SleepNightListener(val clickListener: (sleepId:Long) -> Unit){
     fun onClick(night: SleepNight) = clickListener(night.nightId)
+}
+
+/**
+ * A sealed class defines a closed type, which means that all subclasses of DataItem must be defined in this file.
+ * As a result, the number of subclasses is known to the compiler.
+ * It's not possible for another part of your code to define a new type of DataItem that could break your adapter.
+ */
+  sealed class DataItem{
+
+    abstract val id:Long
+      data class SleepNightItem(val sleepNight:SleepNight): DataItem() {
+          override val id: Long = sleepNight.nightId
+      }
+
+    //Header has no actual data. So, we can declare it as an object.
+    // (There will only ever be one instance of Header)
+    object Header:DataItem() {
+        override val id: Long = Long.MIN_VALUE //A constant holding the minimum value a long can have, -2^63.
+    }
+
 }
 

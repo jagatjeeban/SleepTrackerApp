@@ -58,6 +58,7 @@
     <string name="seconds_length">%d seconds on %s</string>
     <string name="sleep_image">sleep_image</string>
     <string name="close">Close</string>
+    <string name="header_text">Sleep Results</string>
 
 
 </resources>
