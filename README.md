@@ -11,7 +11,7 @@ Tech Stacks Used
 * SQL Database 
 * SQLite Language
 * Recycler View
-* Android Architecture Components
+* MVVM Architecture
 
 
 
