@@ -124,6 +124,18 @@ class SleepTrackerFragment : Fragment() {
         })
 
         val manager = GridLayoutManager(activity, 3, GridLayoutManager.VERTICAL, false)
+
+        //This is a configuration object that the GridLayoutManager uses to
+        // determine how many spans to use for each item in the list.
+        manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
+            override fun getSpanSize(position: Int): Int {
+                return when(position){
+                    0 -> 3
+                    else -> 1
+                }
+            }
+
+        }
         binding.sleepList.layoutManager = manager
 
         return binding.root
